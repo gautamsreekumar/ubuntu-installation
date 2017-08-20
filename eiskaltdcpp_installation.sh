@@ -34,7 +34,19 @@ sudo apt-get install build-essential linux-headers-`uname -r`
 sudo apt-get install libtool automake autoconf
 sudo apt-get install libx11-dev libxaw7-dev
 
-# installing eiskaltdc++
+sudo curl -R -O http://www.lua.org/ftp/lua-5.3.3.tar.gz
+tar zxf lua-5.3.3.tar.gz
+cd lua-5.3.3
+# modify /src/Makefile from CFLAGS= -O2 -Wall -Wextra -DLUA_COMPAT_5_2 $(SYSCFLAGS) $(MYCFLAGS)
+# to CFLAGS= -O2 -Wall -Wextra -DLUA_COMPAT_5_2 $(SYSCFLAGS) -fPIC $(MYCFLAGS) for 64-bit platform
+make linux test
+sudo make install
+sudo apt-get install -fy lua5*
+sudo apt-get install -fy libupnp-dev
+sudo apt-get install -fy liblualib50-dev libboost-all-dev libaspell-dev liblua5*
+sudo -H pip install idna
+sudo apt-get install libidna-punycode-perl
+sudo apt-get install libidn11-dev
 git clone https://github.com/eiskaltdcpp/eiskaltdcpp.git
 cd eiskaltdcpp
 mkdir -p builddir && cd builddir
