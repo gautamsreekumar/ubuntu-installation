@@ -3,7 +3,7 @@
 #time 11.32am 8 november, 2016
 #this program is for installing the basic required softwares for a new ubuntu system
 
-echo "Welcome to Gautam's installation services"
+echo "Welcome to my installation script"
 echo "-----------------------------------------"
 echo "please make yourself available throughout so that you can answer the prompts"
 echo "-----------------------------------------"
@@ -13,8 +13,6 @@ read go
 
 #repositories
 
-sudo add-apt-repository -y ppa:ubuntu-elisp/ppa #for emacs 24
 sudo add-apt-repository -y ppa:webupd8team/sublime-text-3 #for sublime text 3
 sudo add-apt-repository -y ppa:yannubuntu/boot-repair #for boot repair, in case you need it
-sudo add-apt-repository -y ppa:octave/stable #for gnu octave
 sudo ./soft_ubuntu.sh
