@@ -3,7 +3,7 @@
 #time 11.32am 8 november, 2016
 #this program is for installing the basic required softwares for a new ubuntu system
 
-echo "Welcome to Gautam's installation services"
+echo "Welcome to my installation script"
 echo "-----------------------------------------"
 echo "please make yourself available throughout so that you can answer the prompts"
 echo "-----------------------------------------"
@@ -14,33 +14,46 @@ read go
 #getting information from repositories
 
 sudo apt-get update
-sudo apt-get -y full-upgrade
+sudo apt-get -y dist-upgrade
 sudo apt-get -y autoremove
 sudo apt-get -y autoclean
 
 #installation commands
 
-sudo apt-get install -y boot-repair #for boot repair
-sudo apt-get install -y emacs-snapshot emacs-snapshot-el #for emacs 24.3
-sudo apt-get install -y sublime-text-installer #for sublime text 3
-sudo apt-get install -y idle3 #for idle3, for python
-sudo apt-get install -y gparted #for gparted
-sudo apt-get install -y octave #for gnu octave
-sudo apt-get install -y unity-tweak-tool #for unity tweak tool
-sudo apt-get install -y scilab #for installing scilab
-sudo apt-get install -y python-pip #for installing pip. pip helps us install python packages
-sudo apt-get install -y texlive
-sudo apt-get install -y texmaker
-sudo apt-get install -f -y cmake
-sudo apt-get install -f -y git
-sudo deb -i ./texstudio_2.12.0-5.1_amd64.deb
-sudo apt-get install -f -y
+timedatectl set-local-rtc 1 # for removing the time differences between Windows and Ubuntu
+sudo apt-get install -fy boot-repair #for boot repair
+sudo apt-get install -fy sublime-text-installer #for sublime text 3
+sudo apt-get install -fy gparted #for gparted
+sudo apt-get install -fy unity-tweak-tool #for unity tweak tool
+sudo apt-get install -fy scilab #for installing scilab
+sudo apt-get install -fy python-pip #for installing pip. pip helps us install python packages
+sudo apt-get install -fy cmake
+sudo apt-get install -fy git
+sudo apt-get install -fy texlive-full texworks
 sudo apt-get install -f -y lyx
 
-#sudo wget https://repo.continuum.io/archive/Anaconda2-4.2.0-Linux-x86_64.sh
-#sudo ./Anaconda2-4.2.0-Linux-x86_64.sh
-#sudo chmod +rwx ./Anaconda2-4.2.0-Linux-x86_64.sh
+# to remove the boxes around the icons in Unity launcher
+# credits : benj and Nam G VU from Ask Ubuntu
 
+# first we create a backup
+mkdir ~/backup_icon
+sudo mv /usr/share/unity/icons/launcher_icon_shine_54.svg ~/backup_icon/launcher_icon_shine_54.png
+sudo mv /usr/share/unity/icons/launcher_icon_edge_54.svg ~/backup_icon/launcher_icon_edge_54.png
+sudo mv /usr/share/unity/icons/launcher_icon_glow_62.svg ~/backup_icon/launcher_icon_glow_62.png
+sudo mv /usr/share/unity/icons/launcher_icon_back_54.svg ~/backup_icon/launcher_icon_back_54.png
+sudo mv /usr/share/unity/icons/launcher_icon_shadow_62.svg ~/backup_icon/launcher_icon_shadow_62.png
+# download transparent icons from imgur
+wget -O ~/backup_icon/transparent54.png "https://i.stack.imgur.com/MiFpK.png"
+wget -O ~/backup_icon/transparent62.png "https://i.stack.imgur.com/0NvP0.png"
+# now we replace the old ones with the newly downloaded ones
+sudo cp ~/backup_icon/transparent54.png /usr/share/unity/icons/launcher_icon_shine_54.png
+sudo cp ~/backup_icon/transparent54.png /usr/share/unity/icons/launcher_icon_edge_54.png
+sudo cp ~/backup_icon/transparent62.png /usr/share/unity/icons/launcher_icon_glow_62.png
+sudo cp ~/backup_icon/transparent54.png /usr/share/unity/icons/launcher_icon_back_54.png
+sudo cp ~/backup_icon/transparent62.png /usr/share/unity/icons/launcher_icon_shadow_62.png
+
+sudo apt-get install -fy clementine
+sudo apt-get install -fy compizconfig-settings-manager
 sudo apt-get install -y lolcat
 sudo apt-get install -y fortune-mod
 sudo apt-get install -y figlet
@@ -80,28 +93,6 @@ sudo apt-get install -y -f qttools5-dev
 sudo apt-get install -f -y cmake libblkid-dev e2fslibs-dev libboost-all-dev libaudit-dev
 sudo apt-get install remove cmake
 sudo apt-get install -f -y cmake
-# pangox is necessary for installing the GUI spice for ngspice
-wget http://archive.ubuntu.com/ubuntu/pool/main/p/pangox-compat/pangox-compat_0.0.2.orig.tar.xz
-tar -xJvf pangox-compat_0.0.2.orig.tar.xz
-sudo apt-get install -f -y build-essential make
-cd pangox-compat-0.0.2
-./configure
-make
-sudo make install
-
-# for installing ngspice
-
-sudo apt-get update
-sudo apt-get install build-essential linux-headers-`uname -r`
-sudo apt-get install libtool automake autoconf
-sudo apt-get install flex bison texinfo
-sudo apt-get install libx11-dev libxaw7-dev
-tar xvf ngspice-26.tar.gz
-cd ngspice-26
-sudo ./autogen.sh
-sudo ./configure
-sudo ./make
-sudo make install
 
 # for installing opencv in ubuntu
 
@@ -189,18 +180,6 @@ sudo apt-get install -f -y lua5*
 git clone https://github.com/torch/distro.git ~/torch --recursive
 cd ~/torch; bash install-deps
 sudo ./install.sh
-
-# for installing CUDA
-
-# Download the .deb file from https://developer.nvidia.com/compute/cuda/8.0/prod/local_installers/cuda-repo-ubuntu1604-8-0-local_8.0.44-1_amd64-deb
-
-sudo dpkg -i cuda-repo-ubuntu1604-8-0-local_8.0.44-1_amd64.deb
-sudo apt-get update
-sudo apt-get install cuda
-
-#installing OpenCV using .sh file from R S Nikhil Krishna's git repo
-
-./opencv_installation.sh
 
 # installing eiskaltdc++
 
